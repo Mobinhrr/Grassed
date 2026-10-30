@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Grassed</title>
+<style>
+@property --g{syntax:'<color>';inherits:true;initial-value:#4ade80}
+:root{--g:#4ade80;transition:--g .7s cubic-bezier(.4,0,.2,1);--gd:color-mix(in srgb,var(--g) 55%,#000);--g1:color-mix(in srgb,var(--g) 12%,transparent);--g2:color-mix(in srgb,var(--g) 24%,transparent);--on:#04140a;--bg:#070d09;--line:rgba(255,255,255,.075);--card:rgba(255,255,255,.04);--tx:#e8f3ec;--mut:#7e9486;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0;user-select:none}
+body{height:100vh;overflow:hidden;background:var(--bg);color:var(--tx);font:14px/1.45 "Segoe UI Variable","Segoe UI",system-ui,sans-serif}
+.bg i{position:fixed;border-radius:50%;filter:blur(100px);background:var(--g);opacity:.22;animation:drift 22s ease-in-out infinite alternate}
+.bg i:nth-child(1){width:460px;height:460px;left:-140px;top:-120px}.bg i:nth-child(2){width:380px;height:380px;right:-120px;bottom:-150px;opacity:.14;animation-duration:30s}
+@keyframes drift{to{transform:translate(80px,60px) scale(1.18)}}
+.bar{position:fixed;inset:0 0 auto;height:38px;display:flex;justify-content:flex-end;-webkit-app-region:drag;z-index:30}
+.bar button{-webkit-app-region:no-drag;width:46px;border:0;background:none;color:var(--mut);font-size:15px;cursor:pointer;transition:.2s}.bar button:hover{background:var(--g2);color:var(--g)}
+#app{position:relative;display:grid;grid-template-columns:232px minmax(0,1fr);height:100vh;padding-top:38px}
+aside{padding:8px 16px 18px;display:flex;flex-direction:column}
+.logo{display:flex;align-items:center;gap:12px;margin:0 6px 24px;font-size:25px;font-weight:800;letter-spacing:-.035em}
+.cube{width:32px;height:32px;border-radius:8px;background:linear-gradient(var(--g) 0 38%,#7a5230 38%);box-shadow:inset 0 -3px 0 rgba(0,0,0,.25),0 0 22px var(--g2);animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px) rotate(-4deg)}}
+nav{position:relative;display:flex;flex-direction:column}
+nav b{position:absolute;left:0;right:0;height:46px;border-radius:12px;background:var(--g1);box-shadow:inset 3px 0 var(--g);transform:translateY(calc(var(--i)*46px));transition:transform .5s var(--ease)}
+nav button{position:relative;height:46px;display:flex;align-items:center;gap:12px;padding:0 16px;border:0;background:none;color:var(--mut);font:inherit;font-size:15px;cursor:pointer;transition:color .3s,padding .3s var(--ease)}
+nav button:hover{color:var(--tx);padding-left:21px}nav button.on{color:var(--g);font-weight:600}nav button.dis{opacity:.35;cursor:not-allowed;padding-left:16px}
+.side{margin-top:auto;display:flex;flex-direction:column;gap:10px}.ver{text-align:center;color:var(--mut);font-size:12px}
+main{position:relative;margin:6px 26px 22px 0}
+.pane{position:absolute;inset:0;overflow:auto;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .4s,transform .5s var(--ease);padding-right:4px}
+.pane.on{opacity:1;transform:none;pointer-events:auto}.pane::-webkit-scrollbar,#vlist::-webkit-scrollbar{width:6px}.pane::-webkit-scrollbar-thumb,#vlist::-webkit-scrollbar-thumb{background:var(--g2);border-radius:9px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;backdrop-filter:blur(14px)}
+h2{font-size:26px;font-weight:800;letter-spacing:-.03em}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px}
+.muted,small{color:var(--mut)}small{display:block}
+.btn,.ghost{border:0;border-radius:11px;font:inherit;font-weight:600;cursor:pointer;transition:.3s var(--ease)}
+.btn{padding:10px 18px;background:var(--g);color:var(--on)}.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--g2)}.btn:disabled{background:#3a443d;color:#8a968e;transform:none;box-shadow:none;cursor:default}
+.ghost{padding:7px 13px;background:var(--card);border:1px solid var(--line);color:var(--tx)}.ghost:hover{border-color:var(--g);color:var(--g)}.ghost.x:hover{border-color:#f87171;color:#f87171}
+input,select{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.3);color:var(--tx);font:inherit;outline:0;transition:.25s;user-select:text}
+input:focus,select:focus{border-color:var(--g);box-shadow:0 0 0 3px var(--g1)}option{background:#0d1610}
+.home{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px}
+.hero{position:relative;overflow:hidden;min-height:330px;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;padding:26px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 0,var(--g2),transparent 55%),repeating-linear-gradient(0deg,transparent 0 31px,rgba(255,255,255,.03) 31px 32px),repeating-linear-gradient(90deg,transparent 0 31px,rgba(255,255,255,.03) 31px 32px);animation:pan 30s linear infinite}
+@keyframes pan{to{background-position:0 0,32px 32px,32px 32px}}.hero>*{position:relative}
+.hero h1{font-size:clamp(30px,4vw,50px);line-height:1.05;font-weight:800;letter-spacing:-.045em;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tags{display:flex;gap:8px;flex-wrap:wrap}.tag{padding:3px 12px;border-radius:99px;background:var(--g2);color:var(--g);font-weight:600;font-size:13px}
+#play{position:relative;overflow:hidden;height:62px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--g),var(--gd));color:var(--on);font:inherit;font-size:19px;font-weight:800;cursor:pointer;box-shadow:0 8px 30px var(--g2);transition:transform .3s var(--ease),box-shadow .3s}
+#play:hover{transform:translateY(-3px)}#play:active{transform:scale(.97)}
+#play::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);transform:translateX(-120%);animation:shine 3.5s infinite}@keyframes shine{40%,100%{transform:translateX(120%)}}
+#fill{position:absolute;inset:0 auto 0 0;width:0;background:rgba(255,255,255,.55);transition:width .5s var(--ease)}#play span{position:relative;z-index:1}
+#play.busy{background:var(--gd);color:#fff;cursor:default}#play.busy::after{display:none}
+#log{height:120px;margin-top:14px;overflow:auto;padding:12px;border-radius:12px;background:rgba(0,0,0,.4);color:var(--g);font:11.5px/1.5 Consolas,monospace;white-space:pre-wrap;user-select:text}
+.col{display:flex;flex-direction:column;gap:14px}
+.who{display:flex;align-items:center;gap:12px}.av{flex:none;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--g),var(--gd));color:var(--on);font-weight:800;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.ic{cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:.3s var(--ease)}.ic:hover{transform:translateY(-4px);border-color:var(--g)}.ic.on{border-color:var(--g);background:var(--g1)}
+.ic .av{margin-bottom:8px}.acts{display:flex;gap:8px;margin-top:10px}
+.acc{display:flex;align-items:center;gap:12px;margin-bottom:10px;transition:.3s}.acc.on{border-color:var(--g);background:var(--g1)}.sp{flex:1}
+.seg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);border-radius:12px;background:rgba(0,0,0,.3);padding:4px;margin-bottom:14px}
+.seg b{position:absolute;top:4px;bottom:4px;left:4px;width:calc(33.33% - 2.67px);border-radius:9px;background:var(--g);transform:translateX(calc(var(--i)*100%));transition:transform .45s var(--ease)}
+.seg button{position:relative;padding:9px;border:0;background:none;font:inherit;color:var(--mut);cursor:pointer;transition:.3s}.seg button.on{color:var(--on);font-weight:700}.seg button:disabled{opacity:.35;cursor:not-allowed}
+.form{display:flex;flex-direction:column;gap:10px}.form label{color:var(--mut);margin-top:4px}.row2{display:flex;gap:8px}
+.tools{display:grid;grid-template-columns:1fr 160px 160px;gap:10px;margin-bottom:14px}
+.mod{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;transition:.3s var(--ease)}.mod:hover{border-color:var(--g)}.mod img{width:52px;height:52px;border-radius:12px;background:var(--g1);object-fit:cover}
+.mod p{color:var(--mut);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:2px}.mods{display:grid;gap:12px}
+.empty{text-align:center;padding:40px;color:var(--mut)}
+.sw{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .3s var(--ease),border-color .3s}.sw:hover{transform:scale(1.15)}.sw.on{border-color:#fff;transform:scale(1.12)}
+.pal{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}input[type=range]{padding:0;height:6px;accent-color:var(--g)}
+#drawer{position:fixed;top:38px;right:0;bottom:0;width:420px;z-index:20;padding:22px;background:#0b140e;border-left:1px solid var(--line);transform:translateX(105%);transition:transform .55s var(--ease);display:flex;flex-direction:column;gap:12px;box-shadow:-30px 0 60px rgba(0,0,0,.5)}#drawer.open{transform:none}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{padding:5px 13px;border-radius:99px;border:1px solid var(--line);background:none;color:var(--mut);font:inherit;cursor:pointer;transition:.25s}.chip:hover{border-color:var(--g);color:var(--tx)}.chip.on{background:var(--g);border-color:var(--g);color:var(--on);font-weight:600}
+#vlist{flex:1;overflow:auto;display:flex;flex-direction:column;gap:3px}
+.vr{flex:none;display:flex;justify-content:space-between;padding:9px 14px;border-radius:10px;cursor:pointer;transition:background .2s,transform .3s var(--ease);animation:in .4s var(--ease) both;animation-delay:calc(var(--n)*14ms)}@keyframes in{from{opacity:0;transform:translateX(-12px)}}
+.vr:hover{background:var(--g1);transform:translateX(4px)}.vr.on{background:var(--g2);color:var(--g);font-weight:600}
+#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,100px);padding:12px 20px;border-radius:12px;background:#10281a;border:1px solid var(--g);max-width:80%;transition:transform .5s var(--ease);z-index:40}#toast.on{transform:translate(-50%,0)}
+.hide{display:none!important}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+.ic,.acc,.mod,.who,main,.col>.card{min-width:0}.ic b,.ic small,.acc b,.acc small,.mod b,.who b,.who small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acc>div,.mod>div,.who>div{min-width:0}.vr{gap:12px}.vr small{flex:none}.vr .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.acc .ghost{flex:none}
+</style></head><body>
+<div class="bg"><i></i><i></i></div>
+<div class="bar"><button onclick="g.win('min')">–</button><button id="bmax" onclick="g.win('max')">▢</button><button onclick="g.win('close')">✕</button></div>
+<div id="app">
+ <aside><div class="logo"><div class="cube"></div>Grassed</div>
+  <nav id="nav" style="--i:0"><b></b><button class="on" data-a="go" data-v="0">⌂ Home</button><button data-a="go" data-v="1">▤ Instances</button><button id="nmods" data-a="go" data-v="2">✦ Mods</button><button data-a="go" data-v="3">☻ Accounts</button><button data-a="go" data-v="4">⚙ Settings</button></nav>
+  <div class="side"><div class="card who" style="padding:12px"><div class="av" id="sa">P</div><div><b id="sn"></b><small id="st"></small></div></div><div class="ver">Grassed v0.1.1</div></div></aside>
+ <main>
+  <section class="pane on"><div class="home">
+   <div><div class="card hero"><div class="tags" id="hm"></div><h1 id="hn"></h1><button id="play" data-a="play"><i id="fill"></i><span id="pl">Play</span></button></div><div id="log" class="hide"></div></div>
+   <div class="col"><div class="card"><small>Latest release</small><h2 id="lr">…</h2><small id="ls"></small></div><div class="card"><small>Instance</small><select id="hs" style="margin-top:6px"></select></div></div>
+  </div></section>
+  <section class="pane"><div class="top"><h2>Instances</h2><button class="btn" data-a="newInst">New instance</button></div><div class="grid" id="inst"></div></section>
+  <section class="pane"><div class="top"><div><h2>Mods</h2><small id="mi"></small></div></div>
+   <div class="tools"><input id="mq" placeholder="Search mods"><select id="ms"><option value="relevance">Relevance</option><option value="downloads">Downloads</option><option value="follows">Follows</option><option value="newest">Newest</option><option value="updated">Recently updated</option></select>
+   <select id="mc"><option value="">All categories</option><option>optimization</option><option>utility</option><option>library</option><option>adventure</option><option>technology</option><option>decoration</option><option>magic</option><option>worldgen</option><option>storage</option><option>equipment</option></select></div>
+   <div class="mods" id="mgrid"></div></section>
+  <section class="pane"><div class="top"><h2>Accounts</h2></div><div id="accs"></div>
+   <div class="card" style="margin-top:6px"><div class="seg" id="seg" style="--i:0"><b></b><button class="on" data-a="mode" data-v="0">Offline</button><button data-a="mode" data-v="1">Authlib</button><button disabled title="Microsoft sign-in needs your own Azure app ID and is not in this build">Microsoft</button></div>
+    <div class="form" id="off"><label>Username</label><input id="nm" maxlength="16" placeholder="Steve"><button class="btn" data-a="addOff">Add account</button></div>
+    <div class="form hide" id="aut"><label>Server URL</label><input id="sv" placeholder="https://authserver.ely.by/api/authlib-injector"><label>Username or email</label><input id="us"><label>Password</label><input id="pw" type="password"><button class="btn" data-a="signin">Sign in</button></div></div></section>
+  <section class="pane"><div class="top"><h2>Settings</h2></div><div class="card form" style="max-width:640px">
+   <label>Game folder</label><input id="dir" readonly><div class="row2"><button class="ghost" data-a="browse">Browse</button><button class="ghost" data-a="openDir">Open</button><button class="ghost" data-a="resetDir">Use default</button></div><small>Existing data is not moved when you change this.</small>
+   <label>Memory <b id="rv" style="color:var(--g)"></b></label><input type="range" id="ram" min="1024" max="16384" step="512">
+   <label>Java path</label><input id="jp" placeholder="java">
+   <label>Accent color</label><div class="pal" id="pal"></div></div></section>
+ </main></div>
+<div id="drawer"><div class="top" style="margin:0"><h2>New instance</h2><button class="ghost" data-a="closeNew">Close</button></div>
+ <div class="chips" id="kinds"></div><input id="vq" placeholder="Search versions"><div id="vlist"></div><input id="vn" placeholder="Instance name"><button class="btn" data-a="create">Create instance</button></div>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const KINDS={release:'Release',snapshot:'Snapshot',old_beta:'Beta',old_alpha:'Alpha',fabric:'Fabric',quilt:'Quilt',forge:'Forge',neoforge:'NeoForge',liteloader:'LiteLoader'};
+const PAL=['#4ade80','#a3e635','#2dd4bf','#38bdf8','#a78bfa','#f472b6','#fb923c','#f87171'];
+let cfg,man={latest:{},versions:[]},kind='release',pick=null,busy=false,games=[],tab=0;
+const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const err=e=>(e.message||e+'').replace(/^.*Error: /,'');
+const fmt=n=>n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':n;
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),4200)};
+const save=()=>g.setCfg(cfg);
+const inst=()=>cfg.instances.find(i=>i.id==cfg.instance)||cfg.instances[0];
+const acct=()=>cfg.accounts.find(a=>a.id==cfg.account)||cfg.accounts[0];
+const mcv=i=>i.ver=='latest'?man.latest.release:i.ver;
+const label=i=>(i.loader=='vanilla'?'Vanilla':KINDS[i.loader])+' '+mcv(i);
+const modded=()=>inst().loader!='vanilla';
+const applyAccent=()=>document.documentElement.style.setProperty('--g',cfg.accent);
+
+function renderAll(){const i=inst(),a=acct();
+ $('#hn').textContent=i.name;$('#hm').innerHTML=`<span class="tag">${mcv(i)||'…'}</span><span class="tag">${i.loader=='vanilla'?'Vanilla':KINDS[i.loader]}</span>`;
+ $('#hs').innerHTML=cfg.instances.map(x=>`<option value="${x.id}" ${x.id==i.id?'selected':''}>${esc(x.name)}</option>`).join('');
+ $('#lr').textContent=man.latest.release||'Unavailable';$('#ls').textContent=man.latest.snapshot?'Snapshot '+man.latest.snapshot:'Version list could not be loaded';
+ $('#sa').textContent=a.name[0].toUpperCase();$('#sn').textContent=a.name;$('#st').textContent=a.type=='authlib'?'Authlib':'Offline';
+ $('#inst').innerHTML=cfg.instances.map(x=>`<div class="card ic ${x.id==i.id?'on':''}" data-a="sel" data-v="${x.id}"><div class="av">${esc(x.name[0]).toUpperCase()}</div><b>${esc(x.name)}</b><small>${label(x)}</small><div class="acts"><button class="ghost" data-a="folder" data-v="${x.id}">Folder</button><button class="ghost x" data-a="del" data-v="${x.id}">Delete</button></div></div>`).join('');
+ $('#accs').innerHTML=cfg.accounts.map(x=>`<div class="card acc ${x.id==a.id?'on':''}"><div class="av">${esc(x.name[0]).toUpperCase()}</div><div><b>${esc(x.name)}</b><small>${x.type=='authlib'?'Authlib · '+new URL(x.server).host:'Offline'}</small></div><span class="sp"></span>${x.type=='authlib'?`<button class="ghost" data-a="skin" data-v="${x.id}">Change skin</button>`:''}<button class="ghost" data-a="accSel" data-v="${x.id}">${x.id==a.id?'Active':'Use'}</button><button class="ghost x" data-a="accDel" data-v="${x.id}">✕</button></div>`).join('');
+ $('#dir').value=cfg.dir;$('#ram').value=cfg.ram;$('#rv').textContent=(cfg.ram/1024).toFixed(1)+' GB';$('#jp').value=cfg.java;
+ $('#pal').innerHTML=PAL.map(c=>`<button class="sw ${c==cfg.accent?'on':''}" style="background:${c}" data-a="accent" data-v="${c}"></button>`).join('');
+ $('#nmods').classList.toggle('dis',!modded());
+ $('#mi').textContent=modded()?`${label(i)} · ${i.name}`:'';
+}
+function renderKinds(){$('#kinds').innerHTML=Object.entries(KINDS).map(([k,v])=>`<button class="chip ${k==kind?'on':''}" data-a="kind" data-v="${k}">${v}</button>`).join('')}
+function renderVers(){const q=$('#vq').value.toLowerCase().trim();let n=0;
+ const list=man.versions.filter(v=>(kind in {release:1,snapshot:1,old_beta:1,old_alpha:1}?v.type==kind:games.includes(v.id))&&v.id.toLowerCase().includes(q));
+ $('#vlist').innerHTML=list.length?list.map(v=>`<div class="vr ${v.id==pick?'on':''}" data-a="pickv" data-v="${v.id}" style="--n:${Math.min(++n,14)}"><span class="t">${v.id}</span><small>${v.releaseTime.slice(0,10)}</small></div>`).join(''):`<p class="muted" style="padding:14px">${kind=='liteloader'?'LiteLoader installs are not supported yet.':'No versions found.'}</p>`}
+function go(t){tab=t;$('#nav').style.setProperty('--i',t);$$('#nav button').forEach((b,j)=>b.classList.toggle('on',j==t));$$('.pane').forEach((p,j)=>p.classList.toggle('on',j==t));if(t==2)mods()}
+let mt;const mods=async()=>{const i=inst();if(!modded())return;$('#mgrid').innerHTML='<p class="muted">Searching…</p>';
+ try{const r=await g.search({q:$('#mq').value,loader:i.loader,ver:mcv(i),sort:$('#ms').value,cat:$('#mc').value});
+  $('#mgrid').innerHTML=r.length?r.map(m=>`<div class="card mod"><img src="${m.icon||''}" onerror="this.style.visibility='hidden'"><div><b>${esc(m.title)}</b><small>${esc(m.author)} · ${fmt(m.dl)} downloads</small><p>${esc(m.desc)}</p></div><button class="btn" data-a="install" data-v="${m.id}">Install</button></div>`).join(''):'<div class="card empty">No mods match these filters.</div>'
+ }catch(e){$('#mgrid').innerHTML=`<div class="card empty">${esc(err(e))}</div>`}};
+const reset=()=>{busy=false;$('#play').classList.remove('busy');$('#pl').textContent='Play';$('#fill').style.width=0};
+
+const A={
+ go:v=>{if(v==2&&!modded())return toast('Mods need a Fabric, Quilt, Forge or NeoForge instance');go(+v)},
+ sel:v=>{cfg.instance=v;save();renderAll()},
+ del:v=>{if(cfg.instances.length<2)return toast('Keep at least one instance');cfg.instances=cfg.instances.filter(x=>x.id!=v);if(cfg.instance==v)cfg.instance=cfg.instances[0].id;save();renderAll()},
+ folder:v=>g.open(v),
+ play:async()=>{if(busy)return;busy=true;$('#play').classList.add('busy');$('#log').textContent='';$('#log').classList.remove('hide');await save();const i=inst(),r=await g.launch(i);
+  if(r.error){toast(r.error);reset()}else if(r.lv&&!i.lv){i.lv=r.lv;save()}},
+ newInst:async()=>{$('#drawer').classList.add('open');A.kind(kind)},
+ closeNew:()=>$('#drawer').classList.remove('open'),
+ kind:async v=>{kind=v;pick=null;games=[];renderKinds();renderVers();if(['fabric','quilt','forge','neoforge'].includes(v)){try{games=await g.games(v)}catch(e){toast(err(e))}if(kind==v)renderVers()}},
+ pickv:v=>{pick=v;$('#vn').value=`${KINDS[kind]} ${v}`;renderVers()},
+ create:()=>{if(!pick)return toast('Pick a version first');if(kind=='liteloader')return toast('LiteLoader installs are not supported yet');
+  const loader=['fabric','quilt','forge','neoforge'].includes(kind)?kind:'vanilla',i={id:'i'+Date.now().toString(36),name:$('#vn').value.trim()||`${KINDS[kind]} ${pick}`,ver:pick,loader};
+  cfg.instances.push(i);cfg.instance=i.id;save();renderAll();A.closeNew();go(1);toast('Created '+i.name)},
+ install:async(v,b)=>{const i=inst();b.disabled=true;b.textContent='Installing…';try{await g.install({id:v,loader:i.loader,ver:mcv(i),inst:i.id});b.textContent='Installed'}catch(e){b.disabled=false;b.textContent='Install';toast(err(e))}},
+ mode:v=>{$('#seg').style.setProperty('--i',v);$$('#seg button').forEach((x,j)=>x.classList.toggle('on',j==v));$('#off').classList.toggle('hide',v!=0);$('#aut').classList.toggle('hide',v!=1)},
+ addOff:()=>{const n=$('#nm').value.trim();if(!/^\w{3,16}$/.test(n))return toast('Use 3 to 16 letters, numbers or underscores');const a={id:'a'+Date.now().toString(36),type:'offline',name:n};cfg.accounts.push(a);cfg.account=a.id;save();renderAll();$('#nm').value=''},
+ signin:async()=>{try{const a={id:'a'+Date.now().toString(36),...await g.login({server:$('#sv').value.trim(),user:$('#us').value.trim(),pass:$('#pw').value})};$('#pw').value='';cfg.accounts.push(a);cfg.account=a.id;save();renderAll();toast('Signed in as '+a.name)}catch(e){toast(err(e))}},
+ accSel:v=>{cfg.account=v;save();renderAll()},
+ accDel:v=>{if(cfg.accounts.length<2)return toast('Keep at least one account');cfg.accounts=cfg.accounts.filter(x=>x.id!=v);if(cfg.account==v)cfg.account=cfg.accounts[0].id;save();renderAll()},
+ skin:async v=>{try{await g.skin({id:v,model:confirm('Use slim arms (Alex model)?')?'slim':'classic'});toast('Skin uploaded')}catch(e){toast(err(e))}},
+ browse:async()=>{const p=await g.pick();if(p){cfg.dir=p;save();renderAll()}},
+ openDir:()=>g.open(),
+ resetDir:()=>{cfg.dir=cfg.def;save();renderAll()},
+ accent:v=>{cfg.accent=v;applyAccent();save();renderAll()}
+};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t&&!t.disabled&&A[t.dataset.a])A[t.dataset.a](t.dataset.v,t)});
+$('#vq').oninput=renderVers;
+$('#hs').onchange=e=>A.sel(e.target.value);
+$('#mq').oninput=()=>{clearTimeout(mt);mt=setTimeout(mods,350)};$('#ms').onchange=$('#mc').onchange=mods;
+$('#ram').oninput=e=>{cfg.ram=+e.target.value;$('#rv').textContent=(cfg.ram/1024).toFixed(1)+' GB';save()};
+$('#jp').onchange=e=>{cfg.java=e.target.value.trim()||'java';save()};
+g.on('progress',p=>{$('#pl').textContent=p.label;$('#fill').style.width=p.pct*100+'%';if(p.pct==1)setTimeout(()=>{$('#pl').textContent='Playing';$('#fill').style.width=0},900)});
+g.on('log',t=>{const l=$('#log');l.textContent=(l.textContent+t).slice(-6000);l.scrollTop=1e9});
+g.on('max',m=>$('#bmax').textContent=m?'❐':'▢');
+g.on('exit',c=>{reset();toast(c===0?'Game closed':'Game stopped ('+c+')')});
+
+(async()=>{cfg=await g.getCfg();applyAccent();
+ try{man=await g.versions()}catch{toast('No internet connection and no saved version list yet')}
+ renderKinds();renderAll()})();
+</script></body></html>
